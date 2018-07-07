@@ -13,6 +13,7 @@ import (
 // MuseumRepository interface
 type MuseumRepository interface {
 	GetAll(ctx context.Context) ([]*entity.Museum, error)
+	GetNeighborsByLat(ctx context.Context, lat float64, distance int) ([]*entity.Museum, error)
 }
 
 type museumRepository struct {
@@ -36,6 +37,32 @@ func (r *museumRepository) GetAll(ctx context.Context) ([]*entity.Museum, error)
 		if err != nil {
 			log.Fatalf("Failed to iterate: %v", err)
 		}
+		museum := entity.Museum{}
+		doc.DataTo(&museum)
+		museums = append(museums, &museum)
+	}
+
+	return museums, nil
+}
+
+func (r *museumRepository) GetNeighborsByLat(ctx context.Context, lat float64, distance int) ([]*entity.Museum, error) {
+	distInFloat64 := float64(distance)
+	distInLat := distInFloat64 * 0.0090133729745762
+	latStart := lat - distInLat
+	latEnd := lat + distInLat
+
+	museums := []*entity.Museum{}
+
+	iter := r.Client.Collection("museum").Where("latitude", ">", latStart).Where("latitude", "<", latEnd).Documents(ctx)
+	for {
+		doc, err := iter.Next()
+		if err == iterator.Done {
+			break
+		}
+		if err != nil {
+			log.Fatalf("Failed to iterate: %v", err)
+		}
+
 		museum := entity.Museum{}
 		doc.DataTo(&museum)
 		museums = append(museums, &museum)
