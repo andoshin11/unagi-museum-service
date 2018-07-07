@@ -34,7 +34,7 @@ func (h *museumHandler) GetAll(c *gin.Context) {
 		log.Fatalln(err)
 	}
 
-	c.JSON(http.StatusOK, gin.H{"museums": museums})
+	c.JSON(http.StatusOK, gin.H{"items": museums})
 }
 
 func (h *museumHandler) GetNeighbors(c *gin.Context) {
@@ -54,5 +54,5 @@ func (h *museumHandler) GetNeighbors(c *gin.Context) {
 		log.Fatalln(err)
 	}
 
-	c.JSON(http.StatusOK, gin.H{"museums": museums})
+	c.JSON(http.StatusOK, gin.H{"items": museums})
 }
