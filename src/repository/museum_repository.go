@@ -14,6 +14,7 @@ import (
 type MuseumRepository interface {
 	GetAll(ctx context.Context) ([]*entity.Museum, error)
 	GetNeighborsByLat(ctx context.Context, lat float64, distance int) ([]*entity.Museum, error)
+	GetByID(ctx context.Context, id string) (*entity.Museum, error)
 }
 
 type museumRepository struct {
@@ -69,4 +70,25 @@ func (r *museumRepository) GetNeighborsByLat(ctx context.Context, lat float64, d
 	}
 
 	return museums, nil
+}
+
+func (r *museumRepository) GetByID(ctx context.Context, id string) (*entity.Museum, error) {
+
+	iter := r.Client.Collection("museum").Where("id", "==", id).Documents(ctx)
+	for {
+		doc, err := iter.Next()
+		if err == iterator.Done {
+			return nil, err
+		}
+
+		if err != nil {
+			log.Fatalf("Failed to iterate: %v", err)
+		}
+
+		museum := entity.Museum{}
+		doc.DataTo(&museum)
+		return &museum, nil
+	}
+
+	return nil, nil
 }

@@ -37,6 +37,7 @@ func main() {
 	{
 		v1.GET("/test", test)
 		v1.GET("/museums", museumHandler.GetAll)
+		v1.GET("/museums/:id", museumHandler.GetByID)
 		v1.GET("/neighbors", museumHandler.GetNeighbors)
 	}
 

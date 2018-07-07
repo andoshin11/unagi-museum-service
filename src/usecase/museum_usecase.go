@@ -13,6 +13,7 @@ import (
 type MuseumUsecase interface {
 	GetAll(ctx context.Context) ([]*entity.Museum, error)
 	GetNeighbors(ctx context.Context, lat float64, lng float64, distance int) ([]*entity.Museum, error)
+	GetByID(ctx context.Context, id string) (*entity.Museum, error)
 }
 
 type museumUsecase struct {
@@ -53,4 +54,8 @@ func (u *museumUsecase) GetNeighbors(ctx context.Context, lat float64, lng float
 	}
 
 	return neighborsByLng, nil
+}
+
+func (u *museumUsecase) GetByID(ctx context.Context, id string) (*entity.Museum, error) {
+	return u.MuseumRepository.GetByID(ctx, id)
 }

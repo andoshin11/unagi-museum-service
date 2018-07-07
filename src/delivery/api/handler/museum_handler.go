@@ -13,6 +13,7 @@ import (
 type MuseumHandler interface {
 	GetAll(c *gin.Context)
 	GetNeighbors(c *gin.Context)
+	GetByID(c *gin.Context)
 }
 
 type museumHandler struct {
@@ -60,4 +61,20 @@ func (h *museumHandler) GetNeighbors(c *gin.Context) {
 	c.Writer.Header().Set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
 	c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
 	c.JSON(http.StatusOK, gin.H{"items": museums})
+}
+
+func (h *museumHandler) GetByID(c *gin.Context) {
+	ctx := context.Background()
+
+	id := c.Param("id")
+
+	museum, err := h.MuseumUsecase.GetByID(ctx, id)
+
+	if err != nil {
+		log.Fatalln(err)
+	}
+	c.Writer.Header().Set("Access-Control-Allow-Origin", "http://localhost:8080")
+	c.Writer.Header().Set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+	c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+	c.JSON(http.StatusOK, gin.H{"item": museum})
 }
