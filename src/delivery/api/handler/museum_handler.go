@@ -34,6 +34,9 @@ func (h *museumHandler) GetAll(c *gin.Context) {
 		log.Fatalln(err)
 	}
 
+	c.Writer.Header().Set("Access-Control-Allow-Origin", "http://localhost:8080")
+	c.Writer.Header().Set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+	c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
 	c.JSON(http.StatusOK, gin.H{"items": museums})
 }
 
@@ -53,6 +56,8 @@ func (h *museumHandler) GetNeighbors(c *gin.Context) {
 	if err != nil {
 		log.Fatalln(err)
 	}
-
+	c.Writer.Header().Set("Access-Control-Allow-Origin", "http://localhost:8080")
+	c.Writer.Header().Set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+	c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
 	c.JSON(http.StatusOK, gin.H{"items": museums})
 }
