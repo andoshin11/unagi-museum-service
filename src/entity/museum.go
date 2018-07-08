@@ -8,4 +8,6 @@ type Museum struct {
 	Longitude float64 `json:"longitude"`
 	Name      string  `json:"name"`
 	Img       string  `json:"img"`
+	Entry     string  `json:"entry"`
+	Url       string  `json:"url"`
 }
