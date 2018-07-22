@@ -46,7 +46,7 @@ func (u *museumUsecase) GetNeighbors(ctx context.Context, lat float64, lng float
 	neighborsByLng := neighborsByLat[:0]
 
 	for _, x := range neighborsByLat {
-		targetLng := x.Longitude
+		targetLng := x.Lng
 
 		if lngStart < targetLng && targetLng < lngEnd {
 			neighborsByLng = append(neighborsByLng, x)

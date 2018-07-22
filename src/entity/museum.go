@@ -1,13 +1,17 @@
 package entity
 
+import "time"
+
 // Museum type definition
 type Museum struct {
-	ID        string  `json:"id"`
-	Address   string  `json:"address"`
-	Latitude  float64 `json:"latitude"`
-	Longitude float64 `json:"longitude"`
-	Name      string  `json:"name"`
-	Img       string  `json:"img"`
-	Entry     string  `json:"entry"`
-	Url       string  `json:"url"`
+	Identifier string    `firestore:"identifier" json:"identifier"`
+	CreatedAt  time.Time `firestore:"createdAt" json:"createdAt"`
+	UpdatedAt  time.Time `firestore:"updatedAt" json:"updatedAt"`
+	Name       string    `firestore:"name" json:"name"`
+	Address    string    `firestore:"address" json:"address"`
+	Img        string    `firestore:"img" json:"img"`
+	Entry      string    `firestore:"entry" json:"entry"`
+	SiteURL    string    `firestore:"siteUrl" json:"siteUrl"`
+	Lat        float64   `firestore:"lat" json:"lat"`
+	Lng        float64   `firestore:"lng" json:"lng"`
 }

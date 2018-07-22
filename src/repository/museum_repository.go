@@ -54,7 +54,7 @@ func (r *museumRepository) GetNeighborsByLat(ctx context.Context, lat float64, d
 
 	museums := []*entity.Museum{}
 
-	iter := r.Client.Collection("museum").Where("latitude", ">", latStart).Where("latitude", "<", latEnd).Documents(ctx)
+	iter := r.Client.Collection("museum").Where("lat", ">", latStart).Where("lat", "<", latEnd).Documents(ctx)
 	for {
 		doc, err := iter.Next()
 		if err == iterator.Done {
@@ -74,21 +74,8 @@ func (r *museumRepository) GetNeighborsByLat(ctx context.Context, lat float64, d
 
 func (r *museumRepository) GetByID(ctx context.Context, id string) (*entity.Museum, error) {
 
-	iter := r.Client.Collection("museum").Where("id", "==", id).Documents(ctx)
-	for {
-		doc, err := iter.Next()
-		if err == iterator.Done {
-			return nil, err
-		}
-
-		if err != nil {
-			log.Fatalf("Failed to iterate: %v", err)
-		}
-
-		museum := entity.Museum{}
-		doc.DataTo(&museum)
-		return &museum, nil
-	}
-
-	return nil, nil
+	snapshot, err := r.Client.Collection("museum").Doc(id).Get(ctx)
+	museum := entity.Museum{}
+	snapshot.DataTo(&museum)
+	return &museum, err
 }
