@@ -24,6 +24,11 @@
 #   go-tests = true
 #   unused-packages = true
 
+[metadata.heroku]
+  root-package = "euphro-ddd"
+  go-version = "1.9.4"
+  ensure=true
+
 
 [prune]
   go-tests = true
