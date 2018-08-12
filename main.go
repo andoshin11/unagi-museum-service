@@ -4,7 +4,6 @@ import (
 	"context"
 	"log"
 	"net/http"
-	"os"
 
 	"github.com/andoshin11/euphro-ddd/src/delivery/api/handler"
 	"github.com/andoshin11/euphro-ddd/src/gateway"
@@ -42,5 +41,5 @@ func main() {
 		v1.GET("/neighbors", museumHandler.GetNeighbors)
 	}
 
-	router.Run(":" + os.Getenv("PORT"))
+	router.Run(":3001")
 }

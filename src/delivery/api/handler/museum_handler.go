@@ -17,19 +17,20 @@ type MuseumHandler interface {
 }
 
 type museumHandler struct {
-	MuseumUsecase usecase.MuseumUsecase
+	museumUsecase usecase.MuseumUsecase
 }
 
+// NewMuseumHandler returns a handler
 func NewMuseumHandler(u usecase.MuseumUsecase) MuseumHandler {
 	return &museumHandler{
-		MuseumUsecase: u,
+		museumUsecase: u,
 	}
 }
 
 func (h *museumHandler) GetAll(c *gin.Context) {
 	ctx := context.Background()
 
-	museums, err := h.MuseumUsecase.GetAll(ctx)
+	museums, err := h.museumUsecase.GetAll(ctx)
 
 	if err != nil {
 		log.Fatalln(err)
@@ -52,7 +53,7 @@ func (h *museumHandler) GetNeighbors(c *gin.Context) {
 		log.Fatalln(err)
 	}
 
-	museums, err := h.MuseumUsecase.GetNeighbors(ctx, lat, lng, distance)
+	museums, err := h.museumUsecase.GetNeighbors(ctx, lat, lng, distance)
 
 	if err != nil {
 		log.Fatalln(err)
@@ -68,7 +69,7 @@ func (h *museumHandler) GetByID(c *gin.Context) {
 
 	id := c.Param("id")
 
-	museum, err := h.MuseumUsecase.GetByID(ctx, id)
+	museum, err := h.museumUsecase.GetByID(ctx, id)
 
 	if err != nil {
 		log.Fatalln(err)

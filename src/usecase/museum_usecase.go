@@ -17,22 +17,22 @@ type MuseumUsecase interface {
 }
 
 type museumUsecase struct {
-	MuseumRepository repository.MuseumRepository
+	museumRepository repository.MuseumRepository
 }
 
 // NewMuseumUsecase return a ref
 func NewMuseumUsecase(repo repository.MuseumRepository) MuseumUsecase {
 	return &museumUsecase{
-		MuseumRepository: repo,
+		museumRepository: repo,
 	}
 }
 
 func (u *museumUsecase) GetAll(ctx context.Context) ([]*entity.Museum, error) {
-	return u.MuseumRepository.GetAll(ctx)
+	return u.museumRepository.GetAll(ctx)
 }
 
 func (u *museumUsecase) GetNeighbors(ctx context.Context, lat float64, lng float64, distance int) ([]*entity.Museum, error) {
-	neighborsByLat, err := u.MuseumRepository.GetNeighborsByLat(ctx, lat, distance)
+	neighborsByLat, err := u.museumRepository.GetNeighborsByLat(ctx, lat, distance)
 
 	if err != nil {
 		log.Fatalln(err)
@@ -57,5 +57,5 @@ func (u *museumUsecase) GetNeighbors(ctx context.Context, lat float64, lng float
 }
 
 func (u *museumUsecase) GetByID(ctx context.Context, id string) (*entity.Museum, error) {
-	return u.MuseumRepository.GetByID(ctx, id)
+	return u.museumRepository.GetByID(ctx, id)
 }

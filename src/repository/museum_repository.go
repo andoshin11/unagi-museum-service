@@ -18,18 +18,18 @@ type MuseumRepository interface {
 }
 
 type museumRepository struct {
-	Client *firestore.Client
+	client *firestore.Client
 }
 
 // NewMuseumRepository return struct
-func NewMuseumRepository(Client *firestore.Client) MuseumRepository {
-	return &museumRepository{Client}
+func NewMuseumRepository(client *firestore.Client) MuseumRepository {
+	return &museumRepository{client}
 }
 
 func (r *museumRepository) GetAll(ctx context.Context) ([]*entity.Museum, error) {
 	museums := []*entity.Museum{}
 
-	iter := r.Client.Collection("museum").Documents(ctx)
+	iter := r.client.Collection("museum").Documents(ctx)
 	for {
 		doc, err := iter.Next()
 		if err == iterator.Done {
@@ -54,7 +54,7 @@ func (r *museumRepository) GetNeighborsByLat(ctx context.Context, lat float64, d
 
 	museums := []*entity.Museum{}
 
-	iter := r.Client.Collection("museum").Where("lat", ">", latStart).Where("lat", "<", latEnd).Documents(ctx)
+	iter := r.client.Collection("museum").Where("lat", ">", latStart).Where("lat", "<", latEnd).Documents(ctx)
 	for {
 		doc, err := iter.Next()
 		if err == iterator.Done {
@@ -74,7 +74,7 @@ func (r *museumRepository) GetNeighborsByLat(ctx context.Context, lat float64, d
 
 func (r *museumRepository) GetByID(ctx context.Context, id string) (*entity.Museum, error) {
 
-	snapshot, err := r.Client.Collection("museum").Doc(id).Get(ctx)
+	snapshot, err := r.client.Collection("museum").Doc(id).Get(ctx)
 	museum := entity.Museum{}
 	snapshot.DataTo(&museum)
 	return &museum, err
