@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 
-	"github.com/andoshin11/euphro-ddd/src/entity"
+	"github.com/andoshin11/unagi-museum-service/src/entity"
 	"google.golang.org/api/iterator"
 
 	"cloud.google.com/go/firestore"

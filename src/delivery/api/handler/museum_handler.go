@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/andoshin11/euphro-ddd/src/usecase"
+	"github.com/andoshin11/unagi-museum-service/src/usecase"
 	"github.com/gin-gonic/gin"
 )
 

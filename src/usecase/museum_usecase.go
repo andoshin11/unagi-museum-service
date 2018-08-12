@@ -4,9 +4,9 @@ import (
 	"context"
 	"log"
 
-	"github.com/andoshin11/euphro-ddd/src/entity"
+	"github.com/andoshin11/unagi-museum-service/src/entity"
 
-	"github.com/andoshin11/euphro-ddd/src/repository"
+	"github.com/andoshin11/unagi-museum-service/src/repository"
 )
 
 // MuseumUsecase type
