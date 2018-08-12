@@ -5,10 +5,10 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/andoshin11/euphro-ddd/src/delivery/api/handler"
-	"github.com/andoshin11/euphro-ddd/src/gateway"
-	"github.com/andoshin11/euphro-ddd/src/repository"
-	"github.com/andoshin11/euphro-ddd/src/usecase"
+	"github.com/andoshin11/unagi-museum-service/src/delivery/api/handler"
+	"github.com/andoshin11/unagi-museum-service/src/gateway"
+	"github.com/andoshin11/unagi-museum-service/src/repository"
+	"github.com/andoshin11/unagi-museum-service/src/usecase"
 	"github.com/gin-gonic/gin"
 )
 
